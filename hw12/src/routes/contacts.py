@@ -92,7 +92,7 @@ async def create_contact(
     db: Session = Depends(get_db),
     current_user: User = Depends(auth.get_current_user),
 ):
-    contact = await repository_contacts.get_contact_by_email(body.email, db)
+    contact = await repository_contacts.get_contact_by_email(body.email, current_user.id. db)
     if contact:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT, detail=f"Email is exist!"
