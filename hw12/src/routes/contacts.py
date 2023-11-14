@@ -23,8 +23,7 @@ allowed_operations_remove = RoleAccess([Role.admin])
 
 @router.get(
     "/search",
-    response_model=List[ContactResponse],
-    dependencies=[Depends(allowed_operations_get)],
+    response_model=List[ContactResponse]
 )
 async def search_contacts(
     first_name: str | None = None,
@@ -51,8 +50,7 @@ async def search_contacts(
 
 @router.get(
     "/search/birtdays",
-    response_model=List[ContactResponse],
-    dependencies=[Depends(allowed_operations_get)],
+    response_model=List[ContactResponse]
 )
 async def search_contacts_birthday(
     days: int = Query(default=7, le=30, ge=1),
@@ -75,8 +73,7 @@ async def search_contacts_birthday(
 
 @router.get(
     "",
-    response_model=List[ContactResponse],
-    dependencies=[Depends(allowed_operations_get)],
+    response_model=List[ContactResponse]
 )
 async def get_contacts(
     skip: int = 0,
@@ -92,8 +89,7 @@ async def get_contacts(
 
 @router.get(
     "/{contact_id}",
-    response_model=ContactResponse,
-    dependencies=[Depends(allowed_operations_get)],
+    response_model=ContactResponse
 )
 async def get_contact(contact_id: int = Path(ge=1), db: Session = Depends(get_db)):
     contact = await repository_contacts.get_contact_by_id(contact_id, db)
@@ -125,8 +121,7 @@ async def create_contact(body: ContactModel, db: Session = Depends(get_db)):
 
 @router.put(
     "/{contact_id}",
-    response_model=ContactResponse,
-    dependencies=[Depends(allowed_operations_update)],
+    response_model=ContactResponse
     description="Only moderators and admin",
 )
 async def update_contact(
@@ -140,8 +135,7 @@ async def update_contact(
 
 @router.patch(
     "/{contact_id}/favorite",
-    response_model=ContactResponse,
-    dependencies=[Depends(allowed_operations_update)],
+    response_model=ContactResponse
     description="Only moderators and admin",
 )
 async def favorite_update(
@@ -157,8 +151,7 @@ async def favorite_update(
 
 @router.delete(
     "/{contact_id}",
-    status_code=status.HTTP_204_NO_CONTENT,
-    dependencies=[Depends(allowed_operations_remove)],
+    status_code=status.HTTP_204_NO_CONTENT
     description="Only admin",
 )
 async def remove_contact(contact_id: int = Path(ge=1), db: Session = Depends(get_db)):
