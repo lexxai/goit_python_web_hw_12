@@ -6,13 +6,14 @@ from sqlalchemy import (
     Column,
     Date,
     DateTime,
+    ForeignKey,
     Integer,
     String,
     Text,
     func,
     Enum,
 )
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
 
@@ -57,3 +58,8 @@ class Contact(Base):
     favorite: bool | Column[bool] | None = Column(Boolean, default=False)
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
+    user_id: int | Column[int] | None = Column(
+        Integer, ForeignKey("users.id"), nullable=False, default=1
+    )
+    user = relationship("User", backref="contacts")
+    # , cascade="all, delete-orphan"
