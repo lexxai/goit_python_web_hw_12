@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo Sleep 2...
+echo Sleep 2....
 sleep 2
 
 cd ./hw12
