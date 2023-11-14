@@ -44,3 +44,20 @@ GoIT, Python WEB, Homework number 12. FastAPI. PostgreSQL. Docker. REST API. ORM
 
 ### Create contact of logged user
 ![Create contact ](doc/auth-05.png)
+
+
+### Login with user user1@example.com
+![Create contact ](doc/auth-07.png)
+
+### Get contacts of user user1@example.com only
+![Create contact ](doc/auth-08.png)
+
+### Login with user user2@example.com
+![Create contact ](doc/auth-09.png)
+
+### Get contacts of  user user2@example.com only
+![Create contact ](doc/auth-06.png)
+
+
+## Bonus 
+### JavaScript web client for auth and list
