@@ -3,7 +3,7 @@ from typing import Any, List
 from fastapi import Depends, HTTPException, status, Request
 
 from src.database.models import Role, User
-from src.routes.auth import auth
+from src.routes import auth
 
 class RoleAccess:
 
