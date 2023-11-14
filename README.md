@@ -59,5 +59,13 @@ GoIT, Python WEB, Homework number 12. FastAPI. PostgreSQL. Docker. REST API. ORM
 ![Create contact ](doc/auth-06.png)
 
 
-## Bonus 
+## Bonus Static + Template WWW + JavaScript + CSS 
+![HOME](doc/www-home-01.png)
+
+![LOGIN](doc/www-02-login.png)
+
 ### JavaScript web client for auth and list
+#### Get contacts of  user user1@example.com only
+![LOGIN](doc/www-04.png)
+#### Get contacts of  user user2@example.com only
+![LOGIN](doc/www-03.png)
