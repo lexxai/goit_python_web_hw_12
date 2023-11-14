@@ -69,3 +69,10 @@ GoIT, Python WEB, Homework number 12. FastAPI. PostgreSQL. Docker. REST API. ORM
 ![LOGIN](doc/www-03.png)
 #### Get contacts of  user user1@example.com only
 ![LOGIN](doc/www-04.png)
+
+## DOCKER
+
+![## DOCKER
+](doc/docker-03.png)
+
+https://hub.docker.com/r/lexxai/web_hw12
