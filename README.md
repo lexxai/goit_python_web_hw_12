@@ -29,6 +29,12 @@ GoIT, Python WEB, Homework number 12. FastAPI. PostgreSQL. Docker. REST API. ORM
 ### Create user
 ![Create user](doc/auth-01.png)
 
+### Login user OAuth2
+![Login user](doc/auth-02.jpeg)
+
+### Access by token JWT
+![Access user](doc/auth-03.png)
+
 ## Механізм авторизації за допомогою JWT токенів, щоб усі операції з контактами проводилися тільки зареєстрованими користувачами
 
 ## Користувач має доступ тільки до своїх операцій з контактами
