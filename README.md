@@ -37,4 +37,7 @@ GoIT, Python WEB, Homework number 12. FastAPI. PostgreSQL. Docker. REST API. ORM
 
 ## Механізм авторизації за допомогою JWT токенів, щоб усі операції з контактами проводилися тільки зареєстрованими користувачами
 
+### Access for contacts required
+ ![Access to contacts](doc/auth-04.png)
+
 ## Користувач має доступ тільки до своїх операцій з контактами
