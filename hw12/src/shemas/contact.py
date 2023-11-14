@@ -1,6 +1,8 @@
 from datetime import date, datetime
 from pydantic import BaseModel, Field, EmailStr
 
+from src.database.models import User
+
 
 class ContactModel(BaseModel):
     first_name: str = Field(default="", examples=["Taras", "Ostap"], min_length=1, max_length=25, title="Ім'я")
@@ -31,6 +33,7 @@ class ContactResponse(BaseModel):
     favorite: bool
     created_at: datetime
     updated_at: datetime
+    user: User
 
     class Config:
         from_attributes = True
