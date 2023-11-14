@@ -1,0 +1,22 @@
+version: "3.8"
+name: web_hw12
+services:
+  pg:
+    image: postgres
+    expose:
+      - "5432"
+    # ports:
+    #   - "5432:5432"
+    env_file:
+      - ./.env
+
+  code :
+    build: ./
+    image: lexxai/web_hw12:latest
+    ports:
+      - "9000:9000"
+    env_file:
+      - ./.env
+    depends_on:
+      - pg
+
