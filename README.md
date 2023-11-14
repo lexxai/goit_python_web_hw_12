@@ -41,3 +41,6 @@ GoIT, Python WEB, Homework number 12. FastAPI. PostgreSQL. Docker. REST API. ORM
  ![Access to contacts](doc/auth-04.png)
 
 ## Користувач має доступ тільки до своїх операцій з контактами
+
+### Create contact of logged user
+![Create contact ](doc/auth-05.png)

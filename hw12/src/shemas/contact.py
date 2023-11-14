@@ -2,7 +2,7 @@ from datetime import date, datetime
 from pydantic import BaseModel, Field, EmailStr
 
 # from src.database.models import User
-from src.shemas.users import UserModel
+from src.shemas.users import UserResponse
 
 
 class ContactModel(BaseModel):
@@ -30,7 +30,7 @@ class ContactModel(BaseModel):
     birthday: date | None = None
     comments: str | None = Field(default=None, title="Додаткові дані")
     favorite: bool = False
-    user_id: int = Field(1, gt=0)
+    # user_id: int = Field(1, gt=0)
 
 
 class ContactFavoriteModel(BaseModel):
@@ -50,7 +50,7 @@ class ContactResponse(BaseModel):
     favorite: bool
     created_at: datetime
     updated_at: datetime
-    user: UserModel
+    user: UserResponse
 
     class Config:
         from_attributes = True

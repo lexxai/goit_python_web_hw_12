@@ -9,7 +9,7 @@ from src.database.models import Role
 class UserModel(BaseModel):
     username: str = Field(min_length=2, max_length=150)
     email: EmailStr
-    password: str = Field(min_length=6, max_length=32)
+    password: str = Field(min_length=6, max_length=64)
 
 
 class NewUserResponse(BaseModel):

@@ -7,9 +7,9 @@ from src.database.models import Contact
 
 
 async def get_contacts(db: Session, user_id: int,  skip: int, limit: int, favorite: bool|None = None):
-    query = db.query(Contact)
+    query = db.query(Contact).filter_by(user_id=user_id)
     if favorite is not None:
-        query = query.filter_by(favorite=favorite, user_id=user_id)
+        query = query.filter_by(user_id=user_id)
     contacts = query.offset(skip).limit(limit).all()
     return contacts
 

@@ -34,18 +34,11 @@ class User(Base):
     refresh_token: str | Column[str] | None = Column(String(255), nullable=True)
     avatar: str | Column[str] | None = Column(String(255), nullable=True)
     role: Enum | Column[Enum] = Column("roles", Enum(Role), default=Role.user)
-
+    
+    def __str__(self):
+        return f"id: {self.id}, email: {self.email}, username: {self.username}"
 
 class Contact(Base):
-    """
-    Ім'я
-    Прізвище
-    Електронна адреса
-    Номер телефону
-    День народження
-    Додаткові дані (необов'язково)
-    """
-
     __tablename__ = "contacts"
 
     id: int | Column[int] = Column(Integer, primary_key=True, index=True)
