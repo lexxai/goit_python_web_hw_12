@@ -1,3 +1,4 @@
+from datetime import date
 import enum
 
 from sqlalchemy import (
@@ -5,13 +6,14 @@ from sqlalchemy import (
     Column,
     Date,
     DateTime,
+    ForeignKey,
     Integer,
     String,
     Text,
     func,
     Enum,
 )
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
 
@@ -25,34 +27,32 @@ class Role(enum.Enum):
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True)
+    id: int | Column[int] = Column(Integer, primary_key=True)
     username: str | Column[str] = Column(String(150), nullable=False)
     email: str | Column[str] = Column(String(150), nullable=False, unique=True)
     password: str | Column[str] = Column(String(255), nullable=False)
     refresh_token: str | Column[str] | None = Column(String(255), nullable=True)
     avatar: str | Column[str] | None = Column(String(255), nullable=True)
     role: Enum | Column[Enum] = Column("roles", Enum(Role), default=Role.user)
-
+    
+    def __str__(self):
+        return f"id: {self.id}, email: {self.email}, username: {self.username}"
 
 class Contact(Base):
-    """
-    Ім'я
-    Прізвище
-    Електронна адреса
-    Номер телефону
-    День народження
-    Додаткові дані (необов'язково)
-    """
-
     __tablename__ = "contacts"
 
-    id = Column(Integer, primary_key=True, index=True)
-    first_name = Column(String)
-    last_name = Column(String)
-    email = Column(String)
-    phone = Column(String)
-    birthday = Column(Date)
-    comments = Column(Text)
-    favorite = Column(Boolean, default=False)
+    id: int | Column[int] = Column(Integer, primary_key=True, index=True)
+    first_name: str | Column[str] | None = Column(String)
+    last_name: str | Column[str] | None = Column(String)
+    email: str | Column[str] = Column(String)
+    phone: str | Column[str] | None = Column(String)
+    birthday: date | Column[date] | None = Column(Date)
+    comments: str | Column[str] | None = Column(Text)
+    favorite: bool | Column[bool] | None = Column(Boolean, default=False)
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
+    user_id: int | Column[int] = Column(
+        Integer, ForeignKey("users.id"), nullable=False, default=1
+    )
+    user = relationship("User", backref="contacts")
+    # , cascade="all, delete-orphan"

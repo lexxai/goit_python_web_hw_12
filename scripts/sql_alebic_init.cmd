@@ -3,6 +3,6 @@ PUSHD ..\hw12
 
 alembic init migrations
 
-alembic revision --autogenerate -m 'Init'
+alembic revision --autogenerate -m "Init"
 
 POPD
