@@ -2,7 +2,7 @@ from datetime import date, timedelta
 
 from sqlalchemy.orm import Session
 
-from src.shemas.contact import ContactModel
+from src.shemas.contact import ContactFavoriteModel, ContactModel
 from src.database.models import Contact
 
 
@@ -36,7 +36,7 @@ async def update(contact_id: int, body: ContactModel, db: Session):
     contact = await get_contact_by_id(contact_id, db)
     if contact:
         contact.first_name = body.first_name
-        contact.last_name = body.second_name
+        contact.last_name = body.last_name
         contact.email = body.email
         contact.phone = body.phone
         contact.birthday = body.birthday
@@ -46,7 +46,7 @@ async def update(contact_id: int, body: ContactModel, db: Session):
     return contact
 
 
-async def favorite_update(contact_id: int, body: ContactModel, db: Session):
+async def favorite_update(contact_id: int, body: ContactFavoriteModel, db: Session):
     contact = await get_contact_by_id(contact_id, db)
     if contact:
         contact.favorite = body.favorite

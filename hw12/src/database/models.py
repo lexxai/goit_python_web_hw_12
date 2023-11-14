@@ -1,3 +1,4 @@
+from datetime import date
 import enum
 
 from sqlalchemy import (
@@ -46,13 +47,13 @@ class Contact(Base):
 
     __tablename__ = "contacts"
 
-    id = Column(Integer, primary_key=True, index=True)
-    first_name = Column(String)
-    last_name = Column(String)
-    email = Column(String)
-    phone = Column(String)
-    birthday = Column(Date)
-    comments = Column(Text)
-    favorite = Column(Boolean, default=False)
+    id: int | Column[int] = Column(Integer, primary_key=True, index=True)
+    first_name: str | Column[str] | None = Column(String)
+    last_name: str | Column[str] | None = Column(String)
+    email: str | Column[str]  = Column(String)
+    phone: str | Column[str] | None = Column(String)
+    birthday: date | Column[date] | None = Column(Date)
+    comments: str | Column[str] | None = Column(Text)
+    favorite: bool | Column[bool] | None = Column(Boolean, default=False)
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
