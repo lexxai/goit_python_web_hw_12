@@ -3,6 +3,7 @@ from fastapi import FastAPI, Path, Query, Depends, HTTPException, Request, statu
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
 
@@ -11,10 +12,24 @@ from sqlalchemy.orm import Session
 
 
 from src.database.db import get_db
-from src.routes import contacts
+from src.routes import contacts, auth
+
 
 
 app = FastAPI()
+
+origins = [ 
+    "http://localhost:3000"
+    ]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -45,7 +60,7 @@ def healthchecker(db: Session = Depends(get_db)):
         )
     
 app.include_router(contacts.router, prefix="/api")
-
+app.include_router(auth.router, prefix="/api/auth")
 
 
 if __name__ == "__main__":

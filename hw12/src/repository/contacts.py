@@ -2,7 +2,7 @@ from datetime import date, timedelta
 
 from sqlalchemy.orm import Session
 
-from src.shemas import ContactModel
+from src.shemas.contact import ContactModel
 from src.database.models import Contact
 
 
