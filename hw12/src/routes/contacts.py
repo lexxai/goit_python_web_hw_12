@@ -33,7 +33,8 @@ async def search_contacts(
             "skip": skip,
             "limit": limit,
         }
-        contacts = await repository_contacts.search_contacts(param, db)
+        user_id: int = current_user.id # type: ignore
+        contacts = await repository_contacts.search_contacts(param, user_id, db)
     if contacts is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
     return contacts
@@ -54,7 +55,7 @@ async def search_contacts_birthday(
             "skip": skip,
             "limit": limit,
         }
-        contacts = await repository_contacts.search_birthday(param, db)
+        contacts = await repository_contacts.search_birthday(param, current_user.id, db)
     if contacts is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
     return contacts
@@ -69,7 +70,7 @@ async def get_contacts(
     current_user: User = Depends(auth.get_current_user),
 ):
     contacts = await repository_contacts.get_contacts(
-        db=db, skip=skip, limit=limit, favorite=favorite
+        db=db, user_id=current_user.id, skip=skip, limit=limit, favorite=favorite
     )
     return contacts
 
@@ -80,7 +81,7 @@ async def get_contact(
     db: Session = Depends(get_db),
     current_user: User = Depends(auth.get_current_user),
 ):
-    contact = await repository_contacts.get_contact_by_id(contact_id, db)
+    contact = await repository_contacts.get_contact_by_id(contact_id, current_user.id, db)
     if contact is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
     return contact
@@ -98,7 +99,7 @@ async def create_contact(
             status_code=status.HTTP_409_CONFLICT, detail=f"Email is exist!"
         )
     try:
-        contact = await repository_contacts.create(body, db)
+        contact = await repository_contacts.create(body, current_user.id, db)
     except IntegrityError as err:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail=f"Error: {err}"
@@ -113,7 +114,7 @@ async def update_contact(
     db: Session = Depends(get_db),
     current_user: User = Depends(auth.get_current_user),
 ):
-    contact = await repository_contacts.update(contact_id, body, db)
+    contact = await repository_contacts.update(contact_id, body, current_user.id, db)
     if contact is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
     return contact
@@ -126,7 +127,7 @@ async def favorite_update(
     db: Session = Depends(get_db),
     current_user: User = Depends(auth.get_current_user),
 ):
-    contact = await repository_contacts.favorite_update(contact_id, body, db)
+    contact = await repository_contacts.favorite_update(contact_id, body, current_user.id, db)
     if contact is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
     return contact
@@ -142,7 +143,7 @@ async def remove_contact(
     db: Session = Depends(get_db),
     current_user: User = Depends(auth.get_current_user),
 ):
-    contact = await repository_contacts.delete(contact_id, db)
+    contact = await repository_contacts.delete(contact_id, current_user.id, db)
     if contact is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found")
     return None

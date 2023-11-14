@@ -27,7 +27,7 @@ class Role(enum.Enum):
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True)
+    id: int | Column[int] = Column(Integer, primary_key=True)
     username: str | Column[str] = Column(String(150), nullable=False)
     email: str | Column[str] = Column(String(150), nullable=False, unique=True)
     password: str | Column[str] = Column(String(255), nullable=False)
@@ -51,14 +51,14 @@ class Contact(Base):
     id: int | Column[int] = Column(Integer, primary_key=True, index=True)
     first_name: str | Column[str] | None = Column(String)
     last_name: str | Column[str] | None = Column(String)
-    email: str | Column[str]  = Column(String)
+    email: str | Column[str] = Column(String)
     phone: str | Column[str] | None = Column(String)
     birthday: date | Column[date] | None = Column(Date)
     comments: str | Column[str] | None = Column(Text)
     favorite: bool | Column[bool] | None = Column(Boolean, default=False)
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
-    user_id: int | Column[int] | None = Column(
+    user_id: int | Column[int] = Column(
         Integer, ForeignKey("users.id"), nullable=False, default=1
     )
     user = relationship("User", backref="contacts")
